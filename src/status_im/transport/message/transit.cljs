@@ -104,12 +104,13 @@
                                      (v1.protocol/MessagesSeen. message-ids))
                               "c6" (fn [[name profile-image]]
                                      (v1.contact/ContactUpdate. name profile-image))
-                              "g1" (fn [[chat-id sym-key message]]
-                                     (v1.group-chat/NewGroupKey. chat-id sym-key message))
-                              "g2" (fn [[chat-name participants]]
-                                     (v1.group-chat/GroupAdminUpdate. chat-name participants))
-                              "g3" (fn [_]
-                                     (v1.group-chat/GroupLeave.))}}))
+                              ;; TODO (janherich): group chat handlers temporary disabled
+                              #_"g1" #_(fn [[chat-id sym-key message]]
+                                         (v1.group-chat/NewGroupKey. chat-id sym-key message))
+                              #_"g2" #_(fn [[chat-name participants]]
+                                         (v1.group-chat/GroupAdminUpdate. chat-name participants))
+                              #_"g3" #_(fn [_]
+                                         (v1.group-chat/GroupLeave.))}}))
 
 (defn serialize
   "Serializes a record implementing the StatusMessage protocol using the custom writers"

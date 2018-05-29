@@ -27,9 +27,13 @@
 
 (defn receive-message [cofx now-in-s chat-id js-message]
   (let [{:keys [payload sig timestamp ttl]} (js->clj js-message :keywordize-keys true)
-        status-message (-> payload
-                           transport.utils/to-utf8
-                           transit/deserialize)]
+        status-message (try
+                         (-> payload
+                             transport.utils/to-utf8
+                             transit/deserialize)
+                         (catch :default e
+                           (log/warn "Unable to deserialize message: "
+                                     js-message)))]
     (when (and sig status-message)
       (handlers-macro/merge-fx
        (assoc cofx :js-obj js-message)
