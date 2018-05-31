@@ -45,7 +45,7 @@
                          :placeholder       (i18n/label :t/enter-url)
                          :auto-capitalize   :none
                          :auto-correct      false
-                         :default-value     url
+                         :default-value     (js/decodeURI url)
                          :style             styles/url-input}]]]))
 
 (defn- web-view-error [_ code desc]
